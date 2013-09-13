@@ -1,5 +1,9 @@
-$(document).ready(function(){
-	window.Library = function(){
+$(document).ready(function () {
+	
+	var bookTempHtml = $("#templates .book").html();
+	var bookTemplate = _.template(bookTempHtml);
+
+	window.Library = function () {
 		var self = this;
 
 		this.books = [
@@ -14,57 +18,50 @@ $(document).ready(function(){
 		    status: 'available'
 		  }
      	];
-		this.addBook = function(new_book){
+		this.addBook = function (new_book) {
 			new_book.status = "available";
 			this.books.push(new_book);
 		};
-		this.getBook = function(title){
-			for(var i=0;i < this.books.length; i++){
-				if(this.books[i].title === title){
+		this.getBook = function (title) {
+			for(var i=0; i < this.books.length; i++) {
+				if(this.books[i].title === title) {
 					return this.books[i];
-				};
+				}
 			}
 		};
 		
-		this.render = function(){
-			$("#library").text("");
-			var libTempHtml = $("#templates .book").html();
-			var libTemplate = _.template(libTempHtml);
-			for(var i = 0; i < this.books.length; i++){
-		        var newLibHtml = libTemplate({title: this.books[i].title, author: this.books[i].author, status: this.books[i].status});
+		this.render = function () {
+			$("#library").empty();
+			for(var i = 0; i < this.books.length; i++) {
+		        var newLibHtml = bookTemplate(this.books[i]);
 		        $("#library").append(newLibHtml);
 		    }
 
-		    $(".chkBtn").click(function(){
-		    	title = $(this).data("title");
-				for(i = 0; i < passBooks.length; i++){
-					if (self.books[i].title === title && self.books[i].status === "available"){
-						self.books[i].status = "checkedOut";
-						self.render();
-					};
-				}
+		    $(".chkBtn").on('click', function () {
+		    	var title = $(this).data("title");
+		    	var book = self.getBook(title);
+		    	book.status = "checkedOut";
+				self.render();
 		    });
 		};
 
-		this.checkoutBook = function(title){
-			for(var i = 0; i < this.books.length; i++){
-				if(this.books[i].title.toLowerCase() === title.toLowerCase() && this.books[i].status === "available"){
-					this.books[i].status = "checkedOut";
-					return this.books[i];
-				};
+		this.checkoutBook = function(title) {
+			for(var i = 0; i < this.books.length; i++) {
+				var book = this.books[i];
+				if(book.title.toLowerCase() === title.toLowerCase() && book.status === "available") {
+					book.status = "checkedOut";
+					return book;
+				}
 			}
 		};
 	};
 
-	var libTempHtml = $("#templates .book").html();
-	var libTemplate = _.template(libTempHtml);
-
-    $("#subBut").click(function(){
+    $("#subBut").click(function () {
 		var title = $("#title").val();
 		var author = $("#author").val();
 		var status = $("#status").val();
 
-		var newLibHtml = libTemplate({title: title, author: author, status: status});
+		var newLibHtml = bookTemplate({title: title, author: author, status: status});
 		$("#library").append(newLibHtml);
 	});
 });
