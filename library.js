@@ -31,8 +31,6 @@ $(document).ready(function(){
     	var author = $("#author").val();
     	var status = $("#status").val();
 
-    	
-
     	var newLibHtml = libTemplate({title: title, author: author, status: status});
     	$("#library").append(newLibHtml);
     })
