@@ -18,11 +18,19 @@
       font-weight: normal;
     }
   </style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+  <script src="library.js"></script>
 </head>
 <body>
 
 <h1>THE LIBRARY</h1>
 
+Title:<input id="title"></input><br>
+Author:<input id="author"></input><br>
+Status:<input id="status"></input><br>
+<button id="subBut">Submit</button>
 
 <div id="library"></div>
 
@@ -35,36 +43,6 @@
     </div>
   </script>
 </div>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-<script type="text/javascript">
-var books = [
-    {
-      title: 'TITLE',
-      author: 'AUTHOR',
-      status: 'avaiable'
-    },
-    {
-        title: 'DIFFTITLE',
-        author: 'DIFFAUTHOR',
-        status: 'DIFFavailable'
-      }
-    ];
-
-    var libTempHtml = $("#templates .book").html();
-    var libTemplate = _.template(libTempHtml);
-    //var newLibHtml = libTemplate({ title: 'Aur', author: "ausdf", status: "asfd" });
-
-    var renderLibrary = function(){
-      for(var i = 0; i < books.length; i++){
-        var newLibHtml = libTemplate({title: books[i].title, author: books[i].author, status: books[i].status});
-        $("#library").append(newLibHtml);
-      }
-    };
-
-    renderLibrary();
-</script>
 
 <small>It's back.</small>
 
