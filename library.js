@@ -27,7 +27,14 @@ $(document).ready(function(){
     renderLibrary();
 
     $("#subBut").click(function(){
-    	alert('hi');
+    	var title = $("#title").val();
+    	var author = $("#author").val();
+    	var status = $("#status").val();
+
+    	
+
+    	var newLibHtml = libTemplate({title: title, author: author, status: status});
+    	$("#library").append(newLibHtml);
     })
 });
 
